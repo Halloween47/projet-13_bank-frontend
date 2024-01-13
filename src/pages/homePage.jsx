@@ -1,10 +1,10 @@
-import Header from './components/header';
-import Footer from './components/footer';
-import Hero from './components/hero';
-import FeatureItem from './components/featureItem';
-import iconChat from '../src/assets/img/icon-chat.png'
-import iconMoney from '../src/assets/img/icon-money.png'
-import iconSecurity from '../src/assets/img/icon-security.png'
+import Header from '../components/header';
+import Footer from '../components/footer';
+import Hero from '../components/hero';
+import FeatureItem from '../components/featureItem';
+import iconChat from '../assets/img/icon-chat.png'
+import iconMoney from '../assets/img/icon-money.png'
+import iconSecurity from '../assets/img/icon-security.png'
 
 function HomePage() {
     return (
