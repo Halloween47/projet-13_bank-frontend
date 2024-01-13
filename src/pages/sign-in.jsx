@@ -1,5 +1,7 @@
 import Footer from '../components/footer'
 import Header from '../components/header'
+import User from '../pages/user'
+import { Link } from 'react-router-dom'
 
 function SignIn() {
   return (
@@ -23,9 +25,9 @@ function SignIn() {
               <label for="remember-me">Remember me</label>
             </div>
             {/* <!-- PLACEHOLDER DUE TO STATIC SITE --> */}
-            <a href="./user.html" class="sign-in-button">
+            <Link to="/user" class="sign-in-button">
               Sign In
-            </a>
+            </Link>
             {/* <!-- SHOULD BE THE BUTTON BELOW --> */}
             {/* <!-- <button class="sign-in-button">Sign In</button> --> */}
             {/* <!--  --> */}
