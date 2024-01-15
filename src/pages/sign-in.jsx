@@ -16,11 +16,11 @@ const {loading, error} = useSelector((state) => state.user);
   const navigate = useNavigate();
   const handleLoginEvent = (e) => {
     e.preventDefault()
-    let useCredentials = {
-      username: email,
+    let userCredentials = {
+      email,
       password
     }
-    dispatch(loginUser(useCredentials)).then((result)=> {
+    dispatch(loginUser(userCredentials)).then((result)=> {
       if(result.payload) {
         setEmail('');
         setPassword('');
