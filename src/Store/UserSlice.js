@@ -10,6 +10,7 @@ export const loginUser = createAsyncThunk(
     )
     const response = request.data.data
     localStorage.setItem('user', JSON.stringify(response))
+    console.log(request)
     return response
   },
 )
@@ -33,6 +34,7 @@ const userSlice = createSlice({
         state.user = action.payload
         state.error = null
         console.log('Mot de passe valide. Connexion réussie !')
+        console.log(action.meta.requestStatus)
       })
       .addCase(loginUser.rejected, (state, action) => {
         state.loading = false
@@ -47,3 +49,23 @@ const userSlice = createSlice({
   },
 })
 export default userSlice.reducer
+
+// export const fetchUserProfile = createAsyncThunk(
+//   'user/fetchUserProfile',
+//   async (token) => {
+//     const headerConfig = {
+//       headers: {
+//         Authorization: `Bearer ${token},`,
+//       },
+//     }
+
+//     const request = await axios.post(
+//       `http://localhost:3001/api/v1/user/profile`,
+//       headerConfig,
+//     )
+//     const { firstName, lastName } = request.data.body
+//     localStorage.setItem('firstName', firstName)
+//     localStorage.setItem('lastName', lastName)
+//     return request
+//   },
+// )
