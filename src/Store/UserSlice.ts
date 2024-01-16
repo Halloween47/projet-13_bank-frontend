@@ -1,17 +1,29 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import axios from 'axios'
 
+interface ResponseLogin {
+  
+  status: number;
+  message: string;
+  body: {
+    token: string
+  }
+  
+}
+interface UserMotDePasse {
+  email: string;
+  password: string;
+}
 export const loginUser = createAsyncThunk(
   'user/loginUser',
-  async (useCredentials) => {
-    const request = await axios.post(
+  async (useCredentials: UserMotDePasse) => {
+    axios.post<ResponseLogin>(
       `http://localhost:3001/api/v1/user/login`,
       useCredentials,
-    )
-    const response = request.data.data
-    localStorage.setItem('user', JSON.stringify(response))
-    console.log(request)
-    return response
+    ).then(response => {
+      localStorage.setItem('user', JSON.stringify(response.data))
+      return response.data
+    })
   },
 )
 
@@ -68,3 +80,13 @@ export default userSlice.reducer
 //     return request
 //   },
 // )
+
+export const accessToken = createAsyncThunk('user/token', async () => {
+  const request = await axios.post(
+    `http://localhost:3001/api/v1/user/login`,
+    {},
+  )
+  const response = request.data.body.token
+  console.log(response)
+  return response
+})
