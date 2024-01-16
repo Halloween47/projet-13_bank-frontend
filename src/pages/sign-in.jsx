@@ -28,7 +28,6 @@ function SignIn() {
       else {
         console.log("ACCES NON AUTORISE");
       }
-      console.log(result.meta.requestStatus);
     })
   }
   

@@ -34,7 +34,6 @@ const userSlice = createSlice({
         state.user = action.payload
         state.error = null
         console.log('Mot de passe valide. Connexion réussie !')
-        console.log(action.meta.requestStatus)
       })
       .addCase(loginUser.rejected, (state, action) => {
         state.loading = false
