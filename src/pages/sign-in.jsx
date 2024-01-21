@@ -4,13 +4,13 @@ import Header from '../components/header'
 import User from '../pages/user'
 import { Link, useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import { accessToken, loginUser } from '../Store/UserSlice'
+import { accessToken, fetchUserProfile, loginUser } from '../Store/AuthSlice'
 
 function SignIn() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 
-  const { loading, error } = useSelector((state) => state.user)
+  // const { loading, error } = useSelector((state) => state.user)
 
   const dispatch = useDispatch()
   const navigate = useNavigate()
@@ -22,12 +22,17 @@ function SignIn() {
     }
     dispatch(loginUser(userCredentials)).then((result) => {
       if (result.meta.requestStatus === 'fulfilled') {
-        navigate('/user')
+        // navigate('/user')
         console.log('ACCES AUTORISE')
-        accessToken();
-      } else {
+        console.log(result)
+        console.log(localStorage.getItem('user'));
+
+     } else {
         console.log('ACCES NON AUTORISE')
       }
+    })
+    dispatch(fetchUserProfile()).then((result) => {
+      console.log(result);
     })
   }
 
@@ -63,17 +68,11 @@ function SignIn() {
               <input type="checkbox" id="remember-me" />
               <label for="remember-me">Remember me</label>
             </div>
-            {/* <!-- PLACEHOLDER DUE TO STATIC SITE --> */}
-            {/* <Link to="/user" class="sign-in-button">
-    {loading?'Chargement...':'Sign In'}
-  </Link> */}
             <button class="sign-in-button">
-              {loading ? 'Chargement...' : 'Sign In'}
+             {/* {loading ? 'Chargement...' : 'Sign In'} */}
+             'Sign In'
             </button>
-            {error && <h2 className="error">{error}</h2>}
-            {/* <!-- SHOULD BE THE BUTTON BELOW --> */}
-            {/* <!-- <button class="sign-in-button">Sign In</button> --> */}
-            {/* <!--  --> */}
+            {/* {error && <h2 className="error">{error}</h2>} */}
           </form>
         </section>
       </main>
