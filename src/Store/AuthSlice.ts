@@ -37,11 +37,12 @@ export const fetchUserProfile = createAsyncThunk(
   async () => {
     const token = JSON.stringify(localStorage.getItem('token'));
     const tokenWithoutQuotes = token.replace(/"/g, '');
-    console.log(tokenWithoutQuotes);
+    // console.log(tokenWithoutQuotes);
     
     const headerConfig = {
       headers: {
-        Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1OWMyODc3NWVkYmI0MWFjNDA3MzZlNyIsImlhdCI6MTcwNTg0ODc4NiwiZXhwIjoxNzA1OTM1MTg2fQ.jrqiIRo3mXP86ZaUEnEMRnIJbpgtz7CRd-INxfbWS2E`,
+        // Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1OWMyODc3NWVkYmI0MWFjNDA3MzZlOCIsImlhdCI6MTcwNTg1MjQwOCwiZXhwIjoxNzA1OTM4ODA4fQ.4nN_whPDfsb4fcvtSQza21zUHQpUdgTWCghPASL03j8`,
+        Authorization: `Bearer `+ localStorage.getItem('token'),
       },
     }
 
@@ -51,7 +52,10 @@ export const fetchUserProfile = createAsyncThunk(
     )
     .then(
       (response) => {
-        console.log(response.data);
+        console.log(response.data.body.firstName);
+        localStorage.setItem('profile', JSON.stringify(response.data))
+        localStorage.setItem('lastname', response.data.body.lastName)
+        localStorage.setItem('firstname', response.data.body.firstName)
         
         console.log(headerConfig);
         return response.data
@@ -65,39 +69,81 @@ export const fetchUserProfile = createAsyncThunk(
   },
 )
 
-// const userSlice = createSlice({
-//   name: 'user',
-//   initialState: {
-//     loading: false,
-//     user: null,
-//     error: null,
-//   },
-//   extraReducers: (builder) => {
-//     builder
-//       .addCase(loginUser.pending, (state) => {
-//         state.loading = true
-//         state.user = null
-//         state.error = null
-//       })
-//       .addCase(loginUser.fulfilled, (state, action) => {
-//         state.loading = false
-//         state.user = action.payload
-//         state.error = null
-//         console.log('Mot de passe valide. Connexion réussie !')
-//       })
-//       .addCase(loginUser.rejected, (state, action) => {
-//         state.loading = false
-//         state.user = null
-//         console.log(action.error.message)
-//         if (action.error.message === 'Request failed with status code 401') {
-//           state.error = 'Access Denied Invalid Credentials'
-//         } else {
-//           state.error = action.error.message
-//         }
-//       })
-//   },
-// })
-// export default userSlice.reducer
+interface UserState {
+  loading: boolean;
+  user: null; 
+  error: string | null; 
+}
+
+const initialState: UserState = {
+  loading: false,
+  user: null,
+  error:  null,
+};
+/*
+const userSlice = createSlice({
+  name: 'user',
+  initialState: {
+    loading: false,
+    user: null,
+    error: null,
+  },
+  extraReducers: (builder) => {
+    builder
+      .addCase(loginUser.pending, (state) => {
+        state.loading = true
+        state.user = null
+        state.error = null
+      })
+      .addCase(loginUser.fulfilled, (state, action) => {
+        state.loading = false
+        state.user = action.payload
+        state.error = null
+        console.log('Mot de passe valide. Connexion réussie !')
+      })
+      .addCase(loginUser.rejected, (state, action) => {
+        state.loading = false
+        state.user = null
+        console.log(action.error.message)
+        if (action.error.message === 'Request failed with status code 401') {
+          state.error = 'Access Denied Invalid Credentials'
+        } else {
+          state.error = action.error.message
+        }
+      })
+  },
+})
+*/
+const userSlice = createSlice({
+  name: 'user',
+  initialState,
+  reducers: {},
+  extraReducers: (builder) => {
+    builder
+      .addCase(loginUser.pending, (state) => {
+        state.loading = true;
+        state.user = null;
+        state.error = null;
+      })
+      .addCase(loginUser.fulfilled, (state, action) => {
+        state.loading = false;
+        state.user = null;
+        state.error = null;
+        console.log('Mot de passe valide. Connexion réussie !');
+      })
+      .addCase(loginUser.rejected, (state, action) => {
+        state.loading = false;
+        state.user = null;
+        console.log(action.error.message);
+        if (action.error.message === 'Request failed with status code 401') {
+          state.error = 'Access Denied Invalid Credentials';
+        } else {
+          state.error = action.error?.toString() || 'Une erreur s\'est produite';
+        }
+      });
+  },
+});
+export default userSlice.reducer
 
 //////////////////////////////////////
 //////////////////////////////////////

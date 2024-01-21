@@ -19,9 +19,9 @@ function User() {
   return (
     <div className="App">
       <Header />
-      <main class="main bg-dark">
+      <main className="main bg-dark">
         <Welcome />
-        <h2 class="sr-only">Accounts</h2>
+        <h2 className="sr-only">Accounts</h2>
         <Account
           compte="Argent Bank Checking (x8349)"
           sommes="$2,082.79"

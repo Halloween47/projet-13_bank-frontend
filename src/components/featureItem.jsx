@@ -1,8 +1,8 @@
 function FeatureItem(props) {
   return (
-    <div class="feature-item">
-      <img src={props.image} alt="Chat Icon" class="feature-icon" />
-      <h3 class="feature-item-title">{props.titre}</h3>
+    <div className="feature-item">
+      <img src={props.image} alt="Chat Icon" className="feature-icon" />
+      <h3 className="feature-item-title">{props.titre}</h3>
       <p>{props.texte}</p>
     </div>
   )

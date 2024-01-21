@@ -1,14 +1,14 @@
 function Account(props) {
   return (
-    <section class="account">
-      <div class="account-content-wrapper">
-        {/* <h3 class="account-title">Argent Bank Checking (x8349)</h3> */}
-        <h3 class="account-title">{props.compte}</h3>
-        <p class="account-amount">{props.sommes}</p>
-        <p class="account-amount-description">{props.balance}</p>
+    <section className="account">
+      <div className="account-content-wrapper">
+        {/* <h3 className="account-title">Argent Bank Checking (x8349)</h3> */}
+        <h3 className="account-title">{props.compte}</h3>
+        <p className="account-amount">{props.sommes}</p>
+        <p className="account-amount-description">{props.balance}</p>
       </div>
-      <div class="account-content-wrapper cta">
-        <button class="transaction-button">View transactions</button>
+      <div className="account-content-wrapper cta">
+        <button className="transaction-button">View transactions</button>
       </div>
     </section>
   )
