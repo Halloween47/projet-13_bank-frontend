@@ -1,6 +1,7 @@
 // import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
 import axios from 'axios'
+import { ThunkDispatch } from 'redux-thunk';
 
 interface ResponseLogin {
   status: number
@@ -13,223 +14,89 @@ interface UserMotDePasse {
   email: string
   password: string
 }
-
-export const loginUser = createAsyncThunk(
-  'user/loginUser',
-  async (useCredentials: UserMotDePasse) => {
-    axios
-      .post<ResponseLogin>(
-        `http://localhost:3001/api/v1/user/login`,
-        useCredentials,
-      )
-      .then((response) => {
-        
-        localStorage.setItem('user', JSON.stringify(response.data))
-        localStorage.setItem('token', JSON.stringify(response.data.body.token))
-        
-        return response.data
-      })
-  },
-)
-
-export const fetchUserProfile = createAsyncThunk(
-  'user/fetchUserProfile',
-  async () => {
-    const token = JSON.stringify(localStorage.getItem('token'));
-    const tokenWithoutQuotes = token.replace(/"/g, '');
-    // console.log(tokenWithoutQuotes);
-    
-    const headerConfig = {
-      headers: {
-        // Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1OWMyODc3NWVkYmI0MWFjNDA3MzZlOCIsImlhdCI6MTcwNTg1MjQwOCwiZXhwIjoxNzA1OTM4ODA4fQ.4nN_whPDfsb4fcvtSQza21zUHQpUdgTWCghPASL03j8`,
-        Authorization: `Bearer `+ localStorage.getItem('token'),
-      },
-    }
-
-    axios.post(
-      "http://localhost:3001/api/v1/user/profile"
-      ,{},headerConfig
-    )
-    .then(
-      (response) => {
-        console.log(response.data.body.firstName);
-        localStorage.setItem('profile', JSON.stringify(response.data))
-        localStorage.setItem('lastname', response.data.body.lastName)
-        localStorage.setItem('firstname', response.data.body.firstName)
-        
-        console.log(headerConfig);
-        return response.data
-      }
-    )
-    // const { firstName, lastName } = request.data.body;
-    // localStorage.setItem('firstName', firstName);
-    // localStorage.setItem('lastName', lastName);
-    // console.log(token);
-    
-  },
-)
-
-interface UserState {
-  loading: boolean;
-  user: null; 
-  error: string | null; 
+interface AuthState {
+  isAuthenticated: boolean;
+  error: string | null;
 }
 
-const initialState: UserState = {
-  loading: false,
-  user: null,
-  error:  null,
-};
-/*
-const userSlice = createSlice({
-  name: 'user',
+// export const loginUser = createAsyncThunk(
+//   'user/loginUser',
+//   async (userCredentials: UserMotDePasse) => {
+//     axios.post<ResponseLogin>(
+//         `http://localhost:3001/api/v1/user/login`,
+//         userCredentials,
+//       )
+//       .then((response) => {
+//         console.log(response);
+//         console.log(response.data);
+//         console.log(response.data.status);
+//         return response.data
+//       })
+//     }
+    
+// )
+
+
+// export const loginUser = createAsyncThunk<ResponseLogin, UserMotDePasse>(
+//   'user/loginUser',
+//   async (userCredentials: UserMotDePasse) => {
+//     try {
+//       const response = await axios.post<ResponseLogin>(
+//         'http://localhost:3001/api/v1/user/login',
+//         userCredentials
+//       );
+
+//       console.log(response);
+//       console.log(response.data);
+//       console.log(response.data.status);
+
+//       return response.data;
+
+//     } 
+//     catch (error) {
+//       console.error(error);
+//       throw error;
+//     }
+//   }
+// );
+
+export const loginUser = (userCredentials: UserMotDePasse) => 
+async (dispatch: ThunkDispatch<{}, {}, any>) => {
+  try {
+    const response = await axios.post('http://localhost:3001/api/v1/user/login', userCredentials);
+
+    console.log('Identifiant CORRECT');
+    dispatch(loginSuccess())
+
+    return response
+  }
+  catch(error) {
+    console.log(error);
+    console.error(error);
+    
+    
+  }
+}
+
+const authSlice = createSlice({
+  name: "auth",
   initialState: {
-    loading: false,
-    user: null,
+    isAuthenticated: false,
     error: null,
+} as AuthState,
+reducers: {
+  loginSuccess: (state) => {
+    state.isAuthenticated = true;
+    state.error = null;
+    console.log('loginSuccess');
   },
-  extraReducers: (builder) => {
-    builder
-      .addCase(loginUser.pending, (state) => {
-        state.loading = true
-        state.user = null
-        state.error = null
-      })
-      .addCase(loginUser.fulfilled, (state, action) => {
-        state.loading = false
-        state.user = action.payload
-        state.error = null
-        console.log('Mot de passe valide. Connexion réussie !')
-      })
-      .addCase(loginUser.rejected, (state, action) => {
-        state.loading = false
-        state.user = null
-        console.log(action.error.message)
-        if (action.error.message === 'Request failed with status code 401') {
-          state.error = 'Access Denied Invalid Credentials'
-        } else {
-          state.error = action.error.message
-        }
-      })
+  loginFailure: (state) => {
+    state.isAuthenticated = false;
+    state.error = 'null';
+    console.log('loginFailure');
+    
   },
-})
-*/
-const userSlice = createSlice({
-  name: 'user',
-  initialState,
-  reducers: {},
-  extraReducers: (builder) => {
-    builder
-      .addCase(loginUser.pending, (state) => {
-        state.loading = true;
-        state.user = null;
-        state.error = null;
-      })
-      .addCase(loginUser.fulfilled, (state, action) => {
-        state.loading = false;
-        state.user = null;
-        state.error = null;
-        console.log('Mot de passe valide. Connexion réussie !');
-      })
-      .addCase(loginUser.rejected, (state, action) => {
-        state.loading = false;
-        state.user = null;
-        console.log(action.error.message);
-        if (action.error.message === 'Request failed with status code 401') {
-          state.error = 'Access Denied Invalid Credentials';
-        } else {
-          state.error = action.error?.toString() || 'Une erreur s\'est produite';
-        }
-      });
-  },
+},
 });
-export default userSlice.reducer
-
-//////////////////////////////////////
-//////////////////////////////////////
-//////////////////////////////////////
-//////////////////////////////////////
-
-/*
-interface UserState {
-  loading: boolean;
-  // user: null | UserData; // Assurez-vous de définir le type UserData selon votre modèle de données utilisateur
-  user: null; // Assurez-vous de définir le type UserData selon votre modèle de données utilisateur
-  error: null | string;
-}
-
-const initialState: UserState = {
-  loading: false,
-  user: null,
-  error: null,
-};
-
-const userSlice = createSlice({
-  name: 'user',
-  initialState,
-  reducers: {}, // Ajoutez des reducers personnalisés si nécessaire
-  extraReducers: (builder) => {
-    builder
-      .addCase(loginUser.pending, (state) => {
-        state.loading = true;
-        state.user = null;
-        state.error = null;
-      })
-      // .addCase(loginUser.fulfilled, (state, action: PayloadAction<UserData>) => {
-      .addCase(loginUser.fulfilled, (state, action) => {
-        state.loading = false;
-        // state.user = action.payload;
-        state.user = null;
-        state.error = null;
-        console.log('Mot de passe valide. Connexion réussie !');
-      })
-      .addCase(loginUser.rejected, (state, action) => {
-        state.loading = false;
-        state.user = null;
-        console.log(action.error.message);
-        if (action.error.message === 'Request failed with status code 401') {
-          state.error = 'Access Denied Invalid Credentials';
-        } else {
-          // state.error = action.error.message;
-        }
-      });
-  },
-});
-
-export default userSlice.reducer;
-//////////////////////////////////////
-//////////////////////////////////////
-//////////////////////////////////////
-//////////////////////////////////////
-export const fetchUserProfile = createAsyncThunk(
-  'user/fetchUserProfile',
-  async (token) => {
-    const headerConfig = {
-      headers: {
-        Authorization: `Bearer ${token},`,
-      },
-    }
-
-    const request = await axios.post(
-      `http://localhost:3001/api/v1/user/profile`,
-      headerConfig,
-    )
-    const { firstName, lastName } = request.data.body
-    localStorage.setItem('firstName', firstName)
-    localStorage.setItem('lastName', lastName)
-    return request
-  },
-)
-
-export const accessToken = createAsyncThunk('user/token', async () => {
-  const request = await axios.post(
-    `http://localhost:3001/api/v1/user/login`,
-    {},
-  )
-  const response = request.data.body.token
-  console.log(response)
-  return response
-})
-
-
-*/
+export default authSlice.reducer
+export const {loginSuccess, loginFailure} = authSlice.actions
