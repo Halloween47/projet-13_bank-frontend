@@ -60,10 +60,7 @@ function SignIn() {
         console.log(localStorage.getItem('token'))
         
         navigate('/user')
-      } else if (result === undefined) {
-        console.log(result);
-        navigate('/')
-      }
+      } 
     } 
     ).catch((error) => {
       console.error("Erreur lors de la connexion:", error);
