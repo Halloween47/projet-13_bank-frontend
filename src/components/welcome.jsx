@@ -1,15 +1,33 @@
 import { useState } from 'react'
+import { useDispatch } from 'react-redux';
+// import { editProfileName } from '../store/AuthSlice';
+import { editProfileName } from '../store/EditProfileSlice';
 
 function Welcome(props) {
   const [firstName, setFirstName] = useState('')
   const [lastName, setLastName] = useState('')
   const [isVisible, setIsVisible] = useState(false);
-
+  
+  const dispatch = useDispatch();
+  const token = localStorage.getItem('token');
+  console.log(localStorage.getItem('firstname'));
+  
   const handleSave = () => {
     console.log('Nom:', lastName)
     console.log('Prénom:', firstName)
+    console.log(token);
+    dispatch(editProfileName(firstName, lastName, token)).then((result) => {
+      console.log(result);
+      console.log(firstName);
+      setFirstName(firstName);
+      setLastName(lastName);
+      
+      localStorage.setItem('firstname', firstName)   
+      console.log(localStorage.getItem('firstname'));
+    })
+    
+    window.location.reload();
   }
-
   const handleCancel = () => {
     setFirstName('')
     setLastName('')
@@ -17,38 +35,42 @@ function Welcome(props) {
   const handleToggle = () => {
     setIsVisible(!isVisible);
   };
+  
+  
   return (
     <div className="header">
-      <h1>
-        Welcome back
-        <br />
-        {props.firstName + ' ' + props.lastName}
-      </h1>
-      <button className="edit-button"  onClick={handleToggle}>Edit Name</button>
-      {/* <div className="editName"> */}
-      <div className={` ${isVisible ? 'editName-visible' : 'editName-hidden'}`}>
-        <div className="editName-gauche">
-        <input
-              type="text"
-              value={lastName}
-              onChange={(e) => setLastName(e.target.value)}
-              placeholder="Prenom"
-            />
-            <button onClick={handleSave}>Enregistrer</button>
-        </div>
-        <div className="editName-droite">
-        <input
-              type="text"
-              value={firstName}
-              onChange={(e) => setFirstName(e.target.value)}
-              placeholder="Nom"
-            />
-            <button onClick={handleCancel}>Annuler</button>
-        </div>
-
-        
-      </div>
+    <h1>
+    Welcome back
+    <br />
+    {props.firstName + ' ' + props.lastName}
+    {/* {firstName + ' ' + lastName} */}
+    </h1>
+    <button className="edit-button"  onClick={handleToggle}>Edit Name</button>
+    {/* <div className="editName"> */}
+    <div className={` ${isVisible ? 'editName-visible' : 'editName-hidden'}`}>
+    <div className="editName-gauche">
+    <input
+    type="text"
+    value={firstName}
+    onChange={(e) => setFirstName(e.target.value)}
+    placeholder="Prenom"
+    />
+    <button onClick={handleSave}>Enregistrer</button>
     </div>
-  )
-}
-export default Welcome
+    <div className="editName-droite">
+    <input
+    type="text"
+    value={lastName}
+    onChange={(e) => setLastName(e.target.value)}
+    placeholder="Nom"
+    />
+    <button onClick={handleCancel}>Annuler</button>
+    </div>
+    
+    
+    </div>
+    </div>
+    )
+  }
+  export default Welcome
+  

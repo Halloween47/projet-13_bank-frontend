@@ -18,8 +18,7 @@ interface AuthState {
   error: string | null
 }
 
-export const loginUser =
-  (userCredentials: UserMotDePasse) =>
+export const loginUser =  (userCredentials: UserMotDePasse) =>
   async (dispatch: ThunkDispatch<{}, {}, any>) => {
     try {
       const response = await axios.post(
