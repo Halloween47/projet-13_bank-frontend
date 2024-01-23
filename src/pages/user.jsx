@@ -1,34 +1,38 @@
 import { useDispatch } from 'react-redux'
 import { fetchUserDatas, updateLocalStorageUser } from '../store/AuthSlice'
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react'
 import Account from '../components/account'
 import Footer from '../components/footer'
 import Header from '../components/header'
 import Welcome from '../components/welcome'
 
 function User() {
-  const dispatch = useDispatch();
-  const token = localStorage.getItem('token');
+  const dispatch = useDispatch()
+  const token = localStorage.getItem('token')
 
-  const [firstname, setFirstname] = useState('');
-  const [lastname, setLastname] = useState('');
+  const [firstname, setFirstname] = useState('')
+  const [lastname, setLastname] = useState('')
 
   useEffect(() => {
     dispatch(fetchUserDatas(token)).then((result) => {
-      localStorage.setItem('firstname', JSON.stringify(result.data.body.firstName));
-      localStorage.setItem('lastname', JSON.stringify(result.data.body.lastName));
-      setFirstname(result.data.body.firstName);
-      setLastname(result.data.body.lastName);
-    });
-  }, [dispatch, token]);
-
-  
+      localStorage.setItem(
+        'firstname',
+        JSON.stringify(result.data.body.firstName),
+      )
+      localStorage.setItem(
+        'lastname',
+        JSON.stringify(result.data.body.lastName),
+      )
+      setFirstname(result.data.body.firstName)
+      setLastname(result.data.body.lastName)
+    })
+  }, [dispatch, token])
 
   return (
     <div className="App">
       <Header />
       <main className="main bg-dark">
-        <Welcome firstName={firstname} lastName= {lastname}/>
+        <Welcome firstName={firstname} lastName={lastname} />
         <h2 className="sr-only">Accounts</h2>
         <Account
           compte="Argent Bank Checking (x8349)"
