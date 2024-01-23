@@ -1,45 +1,17 @@
 import { useState } from 'react'
 import Footer from '../components/footer'
 import Header from '../components/header'
-import User from '../pages/user'
-import { Link, useNavigate } from 'react-router-dom'
-import { useDispatch, useSelector } from 'react-redux'
-import { accessToken, fetchUserProfile, loginUser } from '../Store/AuthSlice'
+import { useNavigate } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
+import { loginUser } from '../store/AuthSlice'
 
 function SignIn() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState(null)
-  
-  // const { loading, error } = useSelector((state) => state.user)
-  
+    
   const dispatch = useDispatch()
   const navigate = useNavigate()
-  
-  // const handleLoginEvent = (e) => {
-  //   e.preventDefault();
-  //   let userCredentials = {
-  //     email,
-  //     password,
-  //   }
-  //   dispatch(loginUser(userCredentials)).then((result) => {
-  //     console.log(result);
-  //     if (result.data.status === 200) {
-  //       console.log(result);
-  //       alert("Connexion réussie");
-  //       localStorage.setItem("token", JSON.stringify(result.data.body.token));
-  //       console.log(localStorage.getItem('token'))
-  //       // navigate('/user')
-  //     }
-  //     else if (!result) {
-  //       alert("Mauvais identifiant ou mot de passe")
-  //       // navigate('/login')
-  //     }
-  //     else {
-  //       alert('YO')
-  //     }
-  //   } 
-  //   )}
   
   const handleLoginEvent = (e) => {
     e.preventDefault();
@@ -50,15 +22,8 @@ function SignIn() {
     }
   
     dispatch(loginUser(userCredentials)).then((result) => {
-      console.log(result);
-      
       if (result.data.status === 200) {
-        console.log(result);
-        console.log("Connexion réussie");
-        
         localStorage.setItem("token", JSON.stringify(result.data.body.token));
-        console.log(localStorage.getItem('token'))
-        
         navigate('/user')
       } 
     } 
@@ -68,9 +33,6 @@ function SignIn() {
     })
   }
   
-    
-    
-    
     return (
       <div className="sign-in">
       <Header />

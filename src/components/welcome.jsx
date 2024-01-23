@@ -1,13 +1,11 @@
-function Welcome() {
-  const lastname = localStorage.getItem('lastname');
-  const firstname = localStorage.getItem('firstname');
+function Welcome(props) {
   return (
     <div className="header">
       <h1>
         Welcome back
         <br />
         {/* Tony Jarvis! */}
-        {firstname +' '+ lastname}
+        {props.firstName +' '+ props.lastName}
       </h1>
       <button className="edit-button">Edit Name</button>
     </div>
