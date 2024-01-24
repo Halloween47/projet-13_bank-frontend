@@ -315,7 +315,6 @@ body {
 .editName-gauche input {
   width: 40%;
   padding: 10px;
-
 }
 .editName-gauche button {
   width: 30%;
@@ -332,10 +331,13 @@ body {
 .editName-droite input {
   width: 40%;
   padding: 10px;
-
 }
 .editName-droite button {
   width: 30%;
   padding: 10px;
   margin: 10px 0px;
+}
+.profileAuthentificated {
+  margin-right: 20px;
+  text-decoration: none;
 }
