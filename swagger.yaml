@@ -32,7 +32,8 @@ paths:
         '200':
           description: Succès - Transactions récupérées avec succès
           schema:
-            $ref: '#/definitions/TransactionResponse'
+            # $ref: '#/definitions/TransactionResponse'
+            $ref: '#/definitions/User'
         '400':
           description: Requête invalide - Vérifiez les paramètres
         '404':
@@ -125,5 +126,13 @@ definitions:
         description: user first name
       lastName:
         type: string
-        description: user last name
-  
+  NewTransaction:
+    properties:
+      email:
+          type: string
+          description: user email
+  TransactionDetailResponse:
+    properties:
+      email:
+          type: string
+          description: user email
