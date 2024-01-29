@@ -1,5 +1,6 @@
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom'
+import { logOut } from '../store/AuthSlice'
 
 function Header() {
   const isAuthenticated = useSelector(state => state.auth.isAuthenticated);
@@ -21,7 +22,8 @@ function Header() {
           <Link to="/profile" className='profileAuthentificated'>
 {firstname}
           </Link>
-          <Link to="/" className="main-nav-item">
+          <Link to="/" className="main-nav-item" onClick={logOut()}>
+          {/* <Link to="/" className="main-nav-item" > */}
           <i className="fa fa-user-circle"></i>
           Sign Out
         </Link>

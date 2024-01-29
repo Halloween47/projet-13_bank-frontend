@@ -1,4 +1,4 @@
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { fetchUserDatas, updateLocalStorageUser } from '../store/AuthSlice'
 import React, { useState, useEffect } from 'react'
 import Account from '../components/account'
@@ -8,7 +8,9 @@ import Welcome from '../components/welcome'
 
 function User() {
   const dispatch = useDispatch()
-  const token = localStorage.getItem('token')
+  const token = useSelector(state => state.auth.token);
+
+  console.log(token);
 
   const [firstname, setFirstname] = useState('')
   const [lastname, setLastname] = useState('')
