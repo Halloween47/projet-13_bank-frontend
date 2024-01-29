@@ -1,5 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
 import axios from 'axios'
+import { useDispatch } from 'react-redux'
 import { ThunkDispatch } from 'redux-thunk'
 
 interface ResponseLogin {
@@ -27,11 +28,8 @@ export const loginUser =
         'http://localhost:3001/api/v1/user/login',
         userCredentials,
       )
-      console.log(response.data.body.token);
       localStorage.setItem('token',  response.data.body.token);
-      console.log(localStorage.getItem("token"));
       
-
       console.log('Identifiant CORRECT')
       dispatch(loginSuccess())
 
@@ -61,13 +59,17 @@ const authSlice = createSlice({
       state.error = 'null'
       // console.log('loginFailure');
     },
+    setAuthenticationStatus: (state) => {
+      state.isAuthenticated = false
+      state.error = null
+      state.token = null
+    }
   },
 })
 export default authSlice.reducer
-export const { loginSuccess, loginFailure } = authSlice.actions
+export const { loginSuccess, loginFailure, setAuthenticationStatus } = authSlice.actions
 
 export const fetchUserDatas = (token: 'string') => async () => {
-  console.log(token);
   
   let tokenWithoutQuotes = token.replace(/"/g, '')
   const headerConfig = {
@@ -78,7 +80,6 @@ export const fetchUserDatas = (token: 'string') => async () => {
     },
     
   }
-  console.log(headerConfig);
   try {
     const response = await axios.post(
       'http://localhost:3001/api/v1/user/profile',
@@ -95,6 +96,9 @@ export const fetchUserDatas = (token: 'string') => async () => {
   }
 }
 
+
 export const logOut = () => {
+  // console.log(localStorage.getItem('token'));
   localStorage.removeItem('token');
-}
+  // console.log(localStorage.getItem('token'));
+};

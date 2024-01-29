@@ -17,12 +17,12 @@ function Header() {
         <h1 className="sr-only">Argent Bank</h1>
       </Link>
       <div>
-      {isAuthenticated ? (
+      {isAuthenticated && localStorage.getItem('token') !== null ? (
         <>
           <Link to="/profile" className='profileAuthentificated'>
 {firstname}
           </Link>
-          <Link to="/" className="main-nav-item" onClick={logOut()}>
+          <Link to="/" className="main-nav-item" onClick={logOut}>
           {/* <Link to="/" className="main-nav-item" > */}
           <i className="fa fa-user-circle"></i>
           Sign Out
