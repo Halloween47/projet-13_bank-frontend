@@ -19,7 +19,7 @@ function Header() {
       <div>
       {isAuthenticated && localStorage.getItem('token') !== null ? (
         <>
-          <Link to="/profile" className='profileAuthentificated'>
+          <Link to="/user" className='profileAuthentificated'>
 {firstname}
           </Link>
           <Link to="/" className="main-nav-item" onClick={logOut}>
