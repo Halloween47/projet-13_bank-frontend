@@ -9,18 +9,20 @@ basePath: /api/v1
 schemes:
   - http
 paths:
-  /transactions:
+  /transactions/currentMonth:
     get:
+      security: 
+        - Bearer: []
       tags:
         - Transaction Module
       summary: Récupérer les transactions du mois en cours par compte
       description: Retourne les transactions groupées par compte pour le mois en cours.
       parameters:
-        - in: query
-          name: userId
-          description: ID de l'utilisateur
-          required: true
-          type: integer
+        - in: header
+          name: Authorization
+          description: Attach Bearer JWT token
+          required: true  
+          type: string
         - in: query
           name: month
           description: Mois pour lequel récupérer les transactions (format MM/YYYY)
@@ -33,57 +35,7 @@ paths:
           description: Succès - Transactions récupérées avec succès
           schema:
             # $ref: '#/definitions/TransactionResponse'
-            $ref: '#/definitions/User'
-        '400':
-          description: Requête invalide - Vérifiez les paramètres
-        '404':
-          description: Utilisateur non trouvé - L'ID utilisateur spécifié n'existe pas
-        '500':
-          description: Erreur serveur - Impossible de traiter la requête
-
-    post:
-      tags:
-        - Transaction Module
-      summary: Ajouter une nouvelle transaction
-      description: Ajoute une nouvelle transaction.
-      parameters:
-        - in: body
-          name: body
-          description: Données de la nouvelle transaction
-          required: true
-          schema:
-            $ref: '#/definitions/NewTransaction'
-      produces:
-        - application/json
-      responses:
-        '201':
-          description: Transaction ajoutée avec succès
-          schema:
-            $ref: '#/definitions/TransactionDetailResponse'
-        '400':
-          description: Requête invalide - Vérifiez les paramètres
-        '500':
-          description: Erreur serveur - Impossible de traiter la requête
-
-    put: 
-      tags:
-        - Transaction Module
-      summary: Ajouter une nouvelle transaction
-      description: Ajoute une nouvelle transaction.
-      parameters:
-        - in: body
-          name: body
-          description: Données de la nouvelle transaction
-          required: true
-          schema:
-            $ref: '#/definitions/NewTransaction'
-      produces:
-        - application/json
-      responses:
-        '201':
-          description: Transaction ajoutée avec succès
-          schema:
-            $ref: '#/definitions/TransactionDetailResponse'
+            $ref: '#/definitions/currentMonth'
         '400':
           description: Requête invalide - Vérifiez les paramètres
         '500':
@@ -107,32 +59,75 @@ paths:
         '200':
           description: Succès - Détails de la transaction récupérés avec succès
           schema:
-            $ref: '#/definitions/TransactionDetailResponse'
+            $ref: '#/definitions/UserTransactions'
         '404':
           description: Transaction non trouvée - L'ID de transaction spécifié n'existe pas
         '500':
           description: Erreur
+  
+  /transactions/editTransaction:
+    patch:
+      security: 
+        - Bearer: []
+      tags:
+        - Transaction Module
+      summary: Ajouter des informations sur une transaction
+      description: Permets d'ajouter des informations à une transaction existante
+      responses:
+        '200':
+          description: Succès - Transactions mise à jour avec succès
+          schema:
+            # $ref: '#/definitions/TransactionResponse'
+            $ref: '#/definitions/UserTransactions'
+        '400':
+          description: Requête invalide - Vérifiez les paramètres
+        '500':
+          description: Erreur serveur - Impossible de traiter la requête
+    put: 
+      security: 
+        - Bearer: []
+      tags:
+        - Transaction Module
+      summary: Modifier des informations sur une transaction
+      description: Permets de Modifier des informations (voir l'effacer) d'une transaction existante
+      parameters:
+        - in: header
+          name: Authorization
+          description: Attach Bearer JWT token
+          required: true  
+          type: string
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: Succès - Transactions modifiée avec succès
+          schema:
+            # $ref: '#/definitions/TransactionResponse'
+            $ref: '#/definitions/UserTransactions'
+        '400':
+          description: Requête invalide - Vérifiez les paramètres
+        '500':
+          description: Erreur serveur - Impossible de traiter la requête
+    
 definitions:
-  User:
+  currentMonth:
+    type: object
     properties:
-      email:
+      status:
+        type: integer
+      message:
         type: string
-        description: user email
-      password:
-        type: string
-        description: user password
-      firstName:
-        type: string
-        description: user first name
-      lastName:
-        type: string
-  NewTransaction:
+      body:
+        type: object
+        properties:
+          id:
+            type: string
+          email:
+            type: string 
+  UserTransactions:
+    type: object
     properties:
-      email:
-          type: string
-          description: user email
-  TransactionDetailResponse:
-    properties:
-      email:
-          type: string
-          description: user email
+      category:
+        type: string
+      notes:
+        type: string 
