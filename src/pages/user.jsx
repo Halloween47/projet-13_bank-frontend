@@ -8,8 +8,8 @@ import Welcome from '../components/welcome'
 
 function User() {
   const dispatch = useDispatch()
-  const token = useSelector(state => state.auth.token);
-  
+  const token = useSelector((state) => state.auth.token)
+
   const [firstname, setFirstname] = useState('')
   const [lastname, setLastname] = useState('')
   localStorage.setItem('firstname', firstname)

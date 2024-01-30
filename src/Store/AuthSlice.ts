@@ -17,7 +17,7 @@ interface UserMotDePasse {
 interface AuthState {
   isAuthenticated: boolean
   error: string | null
-  token:  string | null
+  token: string | null
 }
 
 export const loginUser =
@@ -28,8 +28,8 @@ export const loginUser =
         'http://localhost:3001/api/v1/user/login',
         userCredentials,
       )
-      localStorage.setItem('token',  response.data.body.token);
-      
+      localStorage.setItem('token', response.data.body.token)
+
       console.log('Identifiant CORRECT')
       dispatch(loginSuccess())
 
@@ -45,7 +45,7 @@ const authSlice = createSlice({
   initialState: {
     isAuthenticated: false,
     error: null,
-    token: localStorage.getItem('token') || ""
+    token: localStorage.getItem('token') || '',
   } as AuthState,
   reducers: {
     loginSuccess: (state) => {
@@ -63,14 +63,14 @@ const authSlice = createSlice({
       state.isAuthenticated = false
       state.error = null
       state.token = null
-    }
+    },
   },
 })
 export default authSlice.reducer
-export const { loginSuccess, loginFailure, setAuthenticationStatus } = authSlice.actions
+export const { loginSuccess, loginFailure, setAuthenticationStatus } =
+  authSlice.actions
 
 export const fetchUserDatas = (token: 'string') => async () => {
-  
   let tokenWithoutQuotes = token.replace(/"/g, '')
   const headerConfig = {
     headers: {
@@ -78,7 +78,6 @@ export const fetchUserDatas = (token: 'string') => async () => {
       Authorization: `Bearer ${tokenWithoutQuotes}`,
       // Authorization: `Bearer ${token}`,
     },
-    
   }
   try {
     const response = await axios.post(
@@ -96,9 +95,8 @@ export const fetchUserDatas = (token: 'string') => async () => {
   }
 }
 
-
 export const logOut = () => {
   // console.log(localStorage.getItem('token'));
-  localStorage.removeItem('token');
+  localStorage.removeItem('token')
   // console.log(localStorage.getItem('token'));
-};
+}

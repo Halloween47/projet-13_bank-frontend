@@ -70,6 +70,12 @@ body {
   width: 200px;
 }
 
+.iconProfil {
+  background-color: blue;
+  width: 10%;
+  height: 10%;
+}
+
 .hero {
   background-image: url('../public/img/bank-tree.jpeg');
   background-position: 0 -50px;
