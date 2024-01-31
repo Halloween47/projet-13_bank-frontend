@@ -3,7 +3,10 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import HomePage from './pages/homePage'
 import SignIn from './pages/sign-in'
 import User from './pages/user'
-import Header from './components/header'
+
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { faCircleUser } from '@fortawesome/free-solid-svg-icons';
+library.add(faCircleUser);
 
 function App() {
   return (

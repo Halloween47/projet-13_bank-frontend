@@ -19,6 +19,7 @@ body {
 
 .bg-dark {
   background-color: #12002b;
+  padding-bottom: 20px;
 }
 
 .sr-only {
@@ -54,6 +55,9 @@ body {
 .main-nav-item {
   text-decoration: none;
   margin-right: 0.5rem;
+}
+.main-nav-item svg {
+  margin-right: 10px;
 }
 
 .main-nav-item:hover {
@@ -105,7 +109,9 @@ body {
   margin-bottom: 0;
   font-size: 0.9rem;
 }
-
+.sign-in {
+  position: relative;
+}
 @media (min-width: 920px) {
   .hero {
     height: 400px;
@@ -169,14 +175,21 @@ body {
   border-color: #00bc77;
   background-color: #00bc77;
   color: #fff;
+  text-decoration: underline;
 }
-
+#mainUser {
+  /* padding: 4rem ; */
+  height: 80vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 .sign-in-content {
   box-sizing: border-box;
   background-color: white;
   width: 300px;
   margin: 0 auto;
-  margin-top: 3rem;
+  /* margin-top: 3rem; */
   padding: 2rem;
 }
 
@@ -343,7 +356,23 @@ body {
   padding: 10px;
   margin: 10px 0px;
 }
+.main-nav-links {
+  width: 20%;
+  display: flex;
+  justify-content: flex-end;
+}
+.main-nav-links a {
+  width: 50%;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
 .profileAuthentificated {
+  display: block;
+  width: 100% !important;
   margin-right: 20px;
   text-decoration: none;
+}
+.profileAuthentificated svg {
+  margin-right: 10px;
 }

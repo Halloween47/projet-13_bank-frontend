@@ -2,6 +2,9 @@ import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { logOut } from '../store/AuthSlice'
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCircleUser, faRightFromBracket } from '@fortawesome/free-solid-svg-icons';
+
 function Header() {
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated)
   const firstname = localStorage.getItem('firstname')
@@ -16,22 +19,23 @@ function Header() {
         />
         <h1 className="sr-only">Argent Bank</h1>
       </Link>
-      <div>
+      <div  className="main-nav-links">
         {isAuthenticated && localStorage.getItem('token') !== null ? (
           <>
             <Link to="/user" className="profileAuthentificated">
-              <div className="iconProfil"></div>
+              <FontAwesomeIcon icon={faCircleUser} />
               {firstname}
-            </Link>
+
+              </Link>
             <Link to="/" className="main-nav-item" onClick={logOut}>
               {/* <Link to="/" className="main-nav-item" > */}
-              <i className="fa fa-user-circle"></i>
-              Sign Out
+              <FontAwesomeIcon icon={faRightFromBracket} />
+                  Sign Out
             </Link>
           </>
         ) : (
           <Link to="/login" className="main-nav-item">
-            <i className="fa fa-user-circle"></i>
+            <FontAwesomeIcon icon={faCircleUser} />
             Sign In
           </Link>
         )}

@@ -5,6 +5,10 @@ import { useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { loginUser } from '../store/AuthSlice'
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCircleUser } from '@fortawesome/free-solid-svg-icons';
+
+
 function SignIn() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -37,9 +41,9 @@ function SignIn() {
   return (
     <div className="sign-in">
       <Header />
-      <main className="main bg-dark">
+      <main className="main bg-dark" id='mainUser'>
         <section className="sign-in-content">
-          <i className="fa fa-user-circle sign-in-icon"></i>
+          <FontAwesomeIcon icon={faCircleUser} />
           <h1>Sign In</h1>
           <form onSubmit={handleLoginEvent}>
             <div className="input-wrapper">
@@ -68,7 +72,7 @@ function SignIn() {
             </div>
             <button className="sign-in-button">
               {/* {loading ? 'Chargement...' : 'Sign In'} */}
-              'Sign In'
+              Sign In
             </button>
             {error && <h2 className="error">{error}</h2>}
           </form>
