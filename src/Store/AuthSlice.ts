@@ -99,4 +99,5 @@ export const logOut = () => {
   // console.log(localStorage.getItem('token'));
   localStorage.removeItem('token')
   // console.log(localStorage.getItem('token'));
+  window.location.href = '/';
 }
