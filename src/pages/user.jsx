@@ -1,10 +1,11 @@
 import { useDispatch, useSelector } from 'react-redux'
-import { fetchUserDatas, updateLocalStorageUser } from '../store/AuthSlice'
-import React, { useState, useEffect } from 'react'
-import Account from '../components/account'
-import Footer from '../components/footer'
+import { fetchUserDatas } from '../store/AuthSlice'
+// import React, { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import Header from '../components/header'
 import Welcome from '../components/welcome'
+import Account from '../components/account'
+import Footer from '../components/footer'
 
 function User() {
   const dispatch = useDispatch()

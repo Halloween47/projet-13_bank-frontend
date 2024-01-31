@@ -1,6 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
 import axios from 'axios'
-import { useDispatch } from 'react-redux'
 import { ThunkDispatch } from 'redux-thunk'
 
 interface ResponseLogin {
@@ -70,7 +69,8 @@ export default authSlice.reducer
 export const { loginSuccess, loginFailure, setAuthenticationStatus } =
   authSlice.actions
 
-export const fetchUserDatas = (token: 'string') => async () => {
+// export const fetchUserDatas = (token: 'string') => async () => {
+export const fetchUserDatas = (token: string) => async () => {
   let tokenWithoutQuotes = token.replace(/"/g, '')
   const headerConfig = {
     headers: {

@@ -12,17 +12,12 @@ function Welcome(props) {
   const token = localStorage.getItem('token')
 
   const handleSave = () => {
-    console.log('Nom:', lastName)
-    console.log('Prénom:', firstName)
-    console.log(token)
     dispatch(editProfileName(firstName, lastName, token)).then((result) => {
-      console.log(result)
-      console.log(firstName)
+      
       setFirstName(firstName)
       setLastName(lastName)
 
       localStorage.setItem('firstname', firstName)
-      console.log(localStorage.getItem('firstname'))
     })
 
     window.location.reload()
