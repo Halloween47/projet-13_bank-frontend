@@ -9,6 +9,7 @@ import Welcome from '../components/welcome'
 function User() {
   const dispatch = useDispatch()
   const token = useSelector((state) => state.auth.token)
+  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated)
 
   const [firstname, setFirstname] = useState('')
   const [lastname, setLastname] = useState('')
@@ -29,6 +30,9 @@ function User() {
   }, [dispatch, token])
 
   return (
+    <>
+    {isAuthenticated ? 
+    // <div>Authentification OK</div> 
     <div className="App">
       <Header />
       <main className="main bg-dark">
@@ -52,6 +56,9 @@ function User() {
       </main>
       <Footer />
     </div>
+    : <div><br/><div>Authentification REFUSE</div></div> }
+    
+    </>
   )
 }
 export default User
