@@ -59,7 +59,8 @@ const authSlice = createSlice({
       // console.log('loginFailure');
     },
     setAuthenticationStatus: (state) => {
-      state.isAuthenticated = false
+      // state.isAuthenticated = false
+      state.isAuthenticated = true
       state.error = null
       state.token = null
     },

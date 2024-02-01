@@ -12,6 +12,7 @@ function User() {
   const token = useSelector((state) => state.auth.token)
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated)
 
+  console.log(isAuthenticated);
   const [firstname, setFirstname] = useState('')
   const [lastname, setLastname] = useState('')
   localStorage.setItem('firstname', firstname)
@@ -28,7 +29,7 @@ function User() {
       setFirstname(result.data.body.firstName)
       setLastname(result.data.body.lastName)
     })
-  }, [dispatch, token])
+  }, [dispatch, token, firstname])
 
   return (
     <>

@@ -26,22 +26,47 @@ export const editProfileName =
 
       console.log(response)
       console.log(response.data.body.firstName)
-      // dispatch(editFirstname());
+
+      dispatch(editProfileSlice.actions.editReducer({
+        firstName: response.data.body.firstName,
+        lastName: response.data.body.lastName,
+      }));
 
       return response
     } catch (error) {
       console.log(error)
     }
   }
+// interface EditState {
+//   firstname: string
+//   lastname: string
+// }
+// const editProfileSlice = createSlice({
+//   name: 'editProfile',
+//   initialState: {
+//     firstname: '',
+//     lastname: '',
+//   } as EditState,
+//   reducers: {
+//     editReducer: (
+//       state,
+//       action: PayloadAction<{ firstName: string; lastName: string }>,
+//     ) => {
+//       state.firstname = action.payload.firstName
+//       state.lastname = action.payload.lastName
+//     },
+//   },
+// })
+// export default editProfileSlice.reducer
+// export const { editReducer } = editProfileSlice.actions
+
 interface EditState {
   firstname: string
-  lastname: string
 }
 const editProfileSlice = createSlice({
   name: 'editProfile',
   initialState: {
-    firstname: '',
-    lastname: '',
+    firstname: localStorage.getItem('firstname') || '',
   } as EditState,
   reducers: {
     editReducer: (
@@ -49,7 +74,6 @@ const editProfileSlice = createSlice({
       action: PayloadAction<{ firstName: string; lastName: string }>,
     ) => {
       state.firstname = action.payload.firstName
-      state.lastname = action.payload.lastName
     },
   },
 })

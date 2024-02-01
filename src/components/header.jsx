@@ -8,7 +8,8 @@ import { useEffect, useState } from 'react';
 
 function Header() {
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated)
-  const firstname = localStorage.getItem('firstname')
+  // const firstname = localStorage.getItem('firstname')
+const firstname = useSelector((state) => state.editProfile.firstname)
   
   return (
     <nav className="main-nav">
