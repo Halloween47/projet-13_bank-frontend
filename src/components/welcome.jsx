@@ -12,17 +12,13 @@ function Welcome(props) {
   // const token = localStorage.getItem('token')
   const token = useSelector((state) => state.auth.token)
 
-
   const handleSave = () => {
     dispatch(editProfileName(firstName, lastName, token)).then((result) => {
       setFirstName(firstName)
       setLastName(lastName)
       setIsVisible(false)
       localStorage.setItem('firstname', firstName)
-
-
     })
-
   }
   const handleCancel = () => {
     setFirstName('')
@@ -37,7 +33,9 @@ function Welcome(props) {
       <h1>
         Welcome back
         <br />
-        {firstName && lastName !== '' ? firstName + ' ' + lastName : props.firstName + ' ' + props.lastName }
+        {firstName && lastName !== ''
+          ? firstName + ' ' + lastName
+          : props.firstName + ' ' + props.lastName}
         {/* {props.firstName + ' ' + props.lastName} */}
         {/* {firstName + ' ' + lastName} */}
       </h1>

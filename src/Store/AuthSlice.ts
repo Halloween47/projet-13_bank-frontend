@@ -3,7 +3,6 @@ import axios from 'axios'
 import { ThunkDispatch } from 'redux-thunk'
 import { editProfileNameReducer } from './EditProfileSlice'
 
-
 interface ResponseLogin {
   status: number
   message: string
@@ -33,7 +32,6 @@ export const loginUser =
 
       console.log('Identifiant CORRECT')
       dispatch(loginSuccess())
-
 
       return response
     } catch (error) {
@@ -74,39 +72,44 @@ export const { loginSuccess, loginFailure, setAuthenticationStatus } =
   authSlice.actions
 
 // export const fetchUserDatas = (token: 'string') => async () => {
-export const fetchUserDatas = (token: string) => async (dispatch: ThunkDispatch<{}, {}, any>) => {
-  let tokenWithoutQuotes = token.replace(/"/g, '')
-  const headerConfig = {
-    headers: {
-      // Authorization: `Bearer `+ tokenWithoutQuotes,
-      Authorization: `Bearer ${tokenWithoutQuotes}`,
-      // Authorization: `Bearer ${token}`,
-    },
+export const fetchUserDatas =
+  (token: string) => async (dispatch: ThunkDispatch<{}, {}, any>) => {
+    let tokenWithoutQuotes = token.replace(/"/g, '')
+    const headerConfig = {
+      headers: {
+        // Authorization: `Bearer `+ tokenWithoutQuotes,
+        Authorization: `Bearer ${tokenWithoutQuotes}`,
+        // Authorization: `Bearer ${token}`,
+      },
+    }
+    try {
+      const response = await axios.post(
+        'http://localhost:3001/api/v1/user/profile',
+        {},
+        headerConfig,
+      )
+      console.log('fetch CORRECT')
+      console.log(response)
+      console.log(response.data.body.firstName)
+
+      dispatch(
+        editProfileNameReducer({
+          firstName: response.data.body.firstName,
+          lastName: 'NewLastName',
+        }),
+      )
+
+      return response
+    } catch (error) {
+      console.error(error)
+      console.log('fetch INCORRECT')
+      throw error
+    }
   }
-  try {
-    const response = await axios.post(
-      'http://localhost:3001/api/v1/user/profile',
-      {},
-      headerConfig,
-    )
-    console.log('fetch CORRECT')
-    console.log(response);
-    console.log(response.data.body.firstName);
-
-    dispatch(editProfileNameReducer({ firstName: response.data.body.firstName, lastName: 'NewLastName' }));
-
-
-    return response
-  } catch (error) {
-    console.error(error)
-    console.log('fetch INCORRECT')
-    throw error
-  }
-}
 
 export const logOut = () => {
   // console.log(localStorage.getItem('token'));
   localStorage.removeItem('token')
   // console.log(localStorage.getItem('token'));
-  window.location.href = '/';
+  window.location.href = '/'
 }

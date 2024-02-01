@@ -12,7 +12,7 @@ function User() {
   const token = useSelector((state) => state.auth.token)
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated)
 
-  console.log(isAuthenticated);
+  console.log(isAuthenticated)
   const [firstname, setFirstname] = useState('')
   const [lastname, setLastname] = useState('')
   localStorage.setItem('firstname', firstname)
@@ -33,33 +33,37 @@ function User() {
 
   return (
     <>
-    {isAuthenticated ? 
-    // <div>Authentification OK</div> 
-    <div className="App">
-      <Header />
-      <main className="main bg-dark">
-        <Welcome firstName={firstname} lastName={lastname} />
-        <h2 className="sr-only">Accounts</h2>
-        <Account
-          compte="Argent Bank Checking (x8349)"
-          sommes="$2,082.79"
-          balance="Available Balance"
-        />
-        <Account
-          compte="Argent Bank Savings (x6712)"
-          sommes="$10,928.42"
-          balance="Available Balance"
-        />
-        <Account
-          compte="Argent Bank Credit Card (x8349)"
-          sommes="$184.30"
-          balance="Current Balance"
-        />
-      </main>
-      <Footer />
-    </div>
-    : <div><br/><div>Authentification REFUSE</div></div> }
-    
+      {isAuthenticated ? (
+        // <div>Authentification OK</div>
+        <div className="App">
+          <Header />
+          <main className="main bg-dark">
+            <Welcome firstName={firstname} lastName={lastname} />
+            <h2 className="sr-only">Accounts</h2>
+            <Account
+              compte="Argent Bank Checking (x8349)"
+              sommes="$2,082.79"
+              balance="Available Balance"
+            />
+            <Account
+              compte="Argent Bank Savings (x6712)"
+              sommes="$10,928.42"
+              balance="Available Balance"
+            />
+            <Account
+              compte="Argent Bank Credit Card (x8349)"
+              sommes="$184.30"
+              balance="Current Balance"
+            />
+          </main>
+          <Footer />
+        </div>
+      ) : (
+        <div>
+          <br />
+          <div>Authentification REFUSE</div>
+        </div>
+      )}
     </>
   )
 }

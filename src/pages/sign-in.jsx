@@ -6,9 +6,8 @@ import { useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { loginUser } from '../store/AuthSlice'
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCircleUser } from '@fortawesome/free-solid-svg-icons';
-
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faCircleUser } from '@fortawesome/free-solid-svg-icons'
 
 function SignIn() {
   const [email, setEmail] = useState('')
@@ -42,7 +41,7 @@ function SignIn() {
   return (
     <div className="sign-in">
       <Header />
-      <main className="main bg-dark" id='mainUser'>
+      <main className="main bg-dark" id="mainUser">
         <section className="sign-in-content">
           <FontAwesomeIcon icon={faCircleUser} />
           <h1>Sign In</h1>

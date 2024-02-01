@@ -2,14 +2,17 @@ import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { logOut } from '../store/AuthSlice'
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCircleUser, faRightFromBracket } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import {
+  faCircleUser,
+  faRightFromBracket,
+} from '@fortawesome/free-solid-svg-icons'
 
 function Header() {
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated)
   // const firstname = localStorage.getItem('firstname')
-const firstname = useSelector((state) => state.editProfile.firstname)
-  
+  const firstname = useSelector((state) => state.editProfile.firstname)
+
   return (
     <nav className="main-nav">
       <Link to="/" className="main-nav-logo">
@@ -20,18 +23,17 @@ const firstname = useSelector((state) => state.editProfile.firstname)
         />
         <h1 className="sr-only">Argent Bank</h1>
       </Link>
-      <div  className="main-nav-links">
+      <div className="main-nav-links">
         {isAuthenticated && localStorage.getItem('token') !== null ? (
           <>
             <Link to="/profil" className="profileAuthentificated">
               <FontAwesomeIcon icon={faCircleUser} />
               {firstname}
-
-              </Link>
+            </Link>
             <Link to="/" className="main-nav-item" onClick={logOut}>
               {/* <Link to="/" className="main-nav-item" > */}
               <FontAwesomeIcon icon={faRightFromBracket} />
-                  Sign Out
+              Sign Out
             </Link>
           </>
         ) : (

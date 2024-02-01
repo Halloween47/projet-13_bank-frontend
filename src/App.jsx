@@ -4,9 +4,9 @@ import HomePage from './pages/homePage'
 import SignIn from './pages/sign-in'
 import Profil from './pages/profil'
 
-import { library } from '@fortawesome/fontawesome-svg-core';
-import { faCircleUser } from '@fortawesome/free-solid-svg-icons';
-library.add(faCircleUser);
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { faCircleUser } from '@fortawesome/free-solid-svg-icons'
+library.add(faCircleUser)
 
 function App() {
   return (

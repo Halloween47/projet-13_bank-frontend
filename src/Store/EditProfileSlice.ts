@@ -27,10 +27,12 @@ export const editProfileName =
       console.log(response)
       console.log(response.data.body.firstName)
 
-      dispatch(editProfileSlice.actions.editReducer({
-        firstName: response.data.body.firstName,
-        lastName: response.data.body.lastName,
-      }));
+      dispatch(
+        editProfileSlice.actions.editReducer({
+          firstName: response.data.body.firstName,
+          lastName: response.data.body.lastName,
+        }),
+      )
 
       return response
     } catch (error) {
@@ -76,13 +78,11 @@ const editProfileSlice = createSlice({
       state.firstname = action.payload.firstName
     },
     editProfileNameReducer: (
-      
-        state, 
-        action: PayloadAction<{ firstName: string; lastName: string }>,
-        ) => {
-        state.firstname = action.payload.firstName
-      }
-    
+      state,
+      action: PayloadAction<{ firstName: string; lastName: string }>,
+    ) => {
+      state.firstname = action.payload.firstName
+    },
   },
 })
 export default editProfileSlice.reducer
