@@ -4,7 +4,6 @@ import { logOut } from '../store/AuthSlice'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleUser, faRightFromBracket } from '@fortawesome/free-solid-svg-icons';
-import { useEffect, useState } from 'react';
 
 function Header() {
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated)
@@ -24,7 +23,7 @@ const firstname = useSelector((state) => state.editProfile.firstname)
       <div  className="main-nav-links">
         {isAuthenticated && localStorage.getItem('token') !== null ? (
           <>
-            <Link to="/user" className="profileAuthentificated">
+            <Link to="/profil" className="profileAuthentificated">
               <FontAwesomeIcon icon={faCircleUser} />
               {firstname}
 

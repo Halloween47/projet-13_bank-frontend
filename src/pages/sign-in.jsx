@@ -30,7 +30,7 @@ function SignIn() {
       .then((result) => {
         if (result.data.status === 200) {
           localStorage.setItem('token', JSON.stringify(result.data.body.token))
-          navigate('/user')
+          navigate('/profil')
         }
       })
       .catch((error) => {
