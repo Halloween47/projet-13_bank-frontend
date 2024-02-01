@@ -75,7 +75,15 @@ const editProfileSlice = createSlice({
     ) => {
       state.firstname = action.payload.firstName
     },
+    editProfileNameReducer: (
+      
+        state, 
+        action: PayloadAction<{ firstName: string; lastName: string }>,
+        ) => {
+        state.firstname = action.payload.firstName
+      }
+    
   },
 })
 export default editProfileSlice.reducer
-export const { editReducer } = editProfileSlice.actions
+export const { editReducer, editProfileNameReducer } = editProfileSlice.actions

@@ -1,6 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit'
 import axios from 'axios'
 import { ThunkDispatch } from 'redux-thunk'
+import { editProfileNameReducer } from './EditProfileSlice'
+
 
 interface ResponseLogin {
   status: number
@@ -31,6 +33,7 @@ export const loginUser =
 
       console.log('Identifiant CORRECT')
       dispatch(loginSuccess())
+
 
       return response
     } catch (error) {
@@ -71,7 +74,7 @@ export const { loginSuccess, loginFailure, setAuthenticationStatus } =
   authSlice.actions
 
 // export const fetchUserDatas = (token: 'string') => async () => {
-export const fetchUserDatas = (token: string) => async () => {
+export const fetchUserDatas = (token: string) => async (dispatch: ThunkDispatch<{}, {}, any>) => {
   let tokenWithoutQuotes = token.replace(/"/g, '')
   const headerConfig = {
     headers: {
@@ -87,6 +90,11 @@ export const fetchUserDatas = (token: string) => async () => {
       headerConfig,
     )
     console.log('fetch CORRECT')
+    console.log(response);
+    console.log(response.data.body.firstName);
+
+    dispatch(editProfileNameReducer({ firstName: response.data.body.firstName, lastName: 'NewLastName' }));
+
 
     return response
   } catch (error) {

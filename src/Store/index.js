@@ -8,4 +8,5 @@ const store = configureStore({
     editProfile: useReducerEditProfile,
   },
 })
+
 export default store
