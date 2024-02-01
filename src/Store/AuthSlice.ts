@@ -25,7 +25,7 @@ export const loginUser =
   (userCredentials: UserMotDePasse) =>
   async (dispatch: ThunkDispatch<{}, {}, any>) => {
     try {
-      const response = await axios.post(
+      const response = await axios.post<ResponseLogin>(
         'http://localhost:3001/api/v1/user/login',
         userCredentials,
       )

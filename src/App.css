@@ -362,7 +362,7 @@ body {
   justify-content: flex-end;
 }
 .main-nav-links a {
-  width: 50%;
+  width: 60%;
   display: flex;
   justify-content: flex-end;
   align-items: center;

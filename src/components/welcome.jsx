@@ -2,7 +2,6 @@ import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 // import { editProfileName } from '../store/AuthSlice';
 import { editProfileName } from '../store/EditProfileSlice'
-import { loginSuccess, setAuthenticationStatus } from '../store/AuthSlice'
 
 function Welcome(props) {
   const [firstName, setFirstName] = useState('')
@@ -12,7 +11,6 @@ function Welcome(props) {
   const dispatch = useDispatch()
   // const token = localStorage.getItem('token')
   const token = useSelector((state) => state.auth.token)
-  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated)
 
 
   const handleSave = () => {
@@ -22,7 +20,6 @@ function Welcome(props) {
       setIsVisible(false)
       localStorage.setItem('firstname', firstName)
 
-      // window.location.href = '/user';
 
     })
 
