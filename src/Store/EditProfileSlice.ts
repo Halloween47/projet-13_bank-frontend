@@ -26,6 +26,7 @@ export const editProfileName =
 
       console.log(response)
       console.log(response.data.body.firstName)
+      // dispatch(editFirstname());
 
       return response
     } catch (error) {

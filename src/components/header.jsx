@@ -4,11 +4,12 @@ import { logOut } from '../store/AuthSlice'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleUser, faRightFromBracket } from '@fortawesome/free-solid-svg-icons';
+import { useEffect, useState } from 'react';
 
 function Header() {
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated)
   const firstname = localStorage.getItem('firstname')
-
+  
   return (
     <nav className="main-nav">
       <Link to="/" className="main-nav-logo">

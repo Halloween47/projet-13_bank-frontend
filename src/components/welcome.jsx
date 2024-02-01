@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 // import { editProfileName } from '../store/AuthSlice';
 import { editProfileName } from '../store/EditProfileSlice'
 
@@ -9,18 +9,19 @@ function Welcome(props) {
   const [isVisible, setIsVisible] = useState(false)
 
   const dispatch = useDispatch()
-  const token = localStorage.getItem('token')
+  // const token = localStorage.getItem('token')
+  const token = useSelector((state) => state.auth.token)
+
 
   const handleSave = () => {
     dispatch(editProfileName(firstName, lastName, token)).then((result) => {
-      
       setFirstName(firstName)
       setLastName(lastName)
+      setIsVisible(false)
 
       localStorage.setItem('firstname', firstName)
     })
 
-    window.location.reload()
   }
   const handleCancel = () => {
     setFirstName('')
@@ -35,7 +36,8 @@ function Welcome(props) {
       <h1>
         Welcome back
         <br />
-        {props.firstName + ' ' + props.lastName}
+        {firstName && lastName !== '' ? firstName + ' ' + lastName : props.firstName + ' ' + props.lastName }
+        {/* {props.firstName + ' ' + props.lastName} */}
         {/* {firstName + ' ' + lastName} */}
       </h1>
       <button className="edit-button" onClick={handleToggle}>
