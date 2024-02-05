@@ -82,6 +82,8 @@ paths:
 
   /transactions/{transactionId}:
     get:
+      security:
+        - Bearer: []
       tags:
         - Transaction Module
       summary: Récupérer les détails d'une transaction
