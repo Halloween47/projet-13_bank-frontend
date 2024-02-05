@@ -47,39 +47,7 @@ paths:
           description: Accès refusé - Unauthorized
         '500':
           description: Erreur serveur - Impossible de traiter la requête
-    put:
-      security:
-        - Bearer: []
-      tags:
-        - Transaction Module
-      summary: Modifier des informations sur une transaction
-      description: Permets de Modifier des informations (voir l'effacer) d'une transaction existante
-      parameters:
-        - in: header
-          name: Authorization
-          description: Attach Bearer JWT token
-          required: true
-          type: string
-        - in: path
-          name: transactionId
-          description: ID de la transaction
-          required: true
-          type: integer
-      produces:
-        - application/json
-      responses:
-        '200':
-          description: Succès - Transactions modifiée avec succès
-          schema:
-            # $ref: '#/definitions/TransactionResponse'
-            $ref: '#/definitions/UserTransactions'
-        '400':
-          description: Requête invalide - Vérifiez les paramètres
-        '401':
-          description: Accès refusé - Unauthorized
-        '500':
-          description: Erreur serveur - Impossible de traiter la requête
-
+    
   /transactions/{transactionId}:
     get:
       security:
@@ -112,6 +80,38 @@ paths:
           description: Transaction non trouvée - L'ID de transaction spécifié n'existe pas
         '500':
           description: Erreur
+    put:
+          security:
+            - Bearer: []
+          tags:
+            - Transaction Module
+          summary: Modifier des informations sur une transaction
+          description: Permets de Modifier des informations (voir l'effacer) d'une transaction existante
+          parameters:
+            - in: header
+              name: Authorization
+              description: Attach Bearer JWT token
+              required: true
+              type: string
+            - in: path
+              name: transactionId
+              description: ID de la transaction
+              required: true
+              type: integer
+          produces:
+            - application/json
+          responses:
+            '200':
+              description: Succès - Transactions modifiée avec succès
+              schema:
+                # $ref: '#/definitions/TransactionResponse'
+                $ref: '#/definitions/UserTransactions'
+            '400':
+              description: Requête invalide - Vérifiez les paramètres
+            '401':
+              description: Accès refusé - Unauthorized
+            '500':
+              description: Erreur serveur - Impossible de traiter la requête
 
 definitions:
   currentMonth:
